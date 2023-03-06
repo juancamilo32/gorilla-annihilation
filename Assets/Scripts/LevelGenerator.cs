@@ -26,7 +26,7 @@ public class LevelGenerator : MonoBehaviour
 
     Camera cam;
 
-    void Start()
+    void Awake()
     {
         cam = FindObjectOfType<Camera>();
         GetSeed();
