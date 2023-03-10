@@ -6,36 +6,35 @@ public class Player : MonoBehaviour
 {
 
     Camera cam;
-
-    float verticalMovement;
-    float horizontalMovement;
-
+    Vector2 movement;
+    Vector2 mousePos;
     Rigidbody2D rigidbody;
 
     public float movementSpeed = 10f;
-    public float cameraMovementSpeed = 10f;
 
     bool canMove = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        cam = FindObjectOfType<Camera>();
+        cam = FindObjectOfType<Camera>().GetComponent<Camera>();
         rigidbody = GetComponent<Rigidbody2D>();
         transform.position = cam.transform.position;
     }
 
     private void Update()
     {
-        horizontalMovement = Input.GetAxis("Horizontal");
-        verticalMovement = Input.GetAxis("Vertical");
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
     }
 
     private void FixedUpdate()
     {
+        ManagePlayerRotation();
         if (canMove)
         {
-            rigidbody.velocity = new Vector2(horizontalMovement * movementSpeed * Time.fixedDeltaTime, verticalMovement * movementSpeed * Time.fixedDeltaTime);
+            rigidbody.velocity = movement * movementSpeed * Time.fixedDeltaTime;
         }
         else
         {
@@ -78,11 +77,18 @@ public class Player : MonoBehaviour
 
     IEnumerator ChangeRoomRoutine(Vector3 cameraTargetPosition, Vector3 playerTargetPosition)
     {
-        cam.GetComponent<Camera>().ChangeRoomView(cameraTargetPosition);
+        cam.GetComponent<CameraController>().ChangeRoomView(cameraTargetPosition);
         transform.position = playerTargetPosition;
         canMove = false;
         yield return new WaitForSeconds(0.5f);
         canMove = true;
+    }
+
+    void ManagePlayerRotation()
+    {
+        Vector2 lookDir = mousePos - rigidbody.position;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg + 90f;
+        rigidbody.rotation = angle;
     }
 
 }
