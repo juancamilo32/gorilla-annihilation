@@ -8,6 +8,8 @@ TagManager:
   - SpawnPoint
   - Grid
   - Door
+  - Wall
+  - Enemy
   layers:
   - Default
   - TransparentFX
