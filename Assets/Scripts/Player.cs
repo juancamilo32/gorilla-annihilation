@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
+
+    public int Health { get; set; }
 
     Camera cam;
     Vector2 movement;
@@ -89,6 +91,15 @@ public class Player : MonoBehaviour
         Vector2 lookDir = mousePos - rigidbody.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg + 90f;
         rigidbody.rotation = angle;
+    }
+
+    public void TakeDamage()
+    {
+        Health--;
+        if (Health < 1)
+        {
+            //Death
+        }
     }
 
 }

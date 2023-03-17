@@ -11,13 +11,24 @@ public class Shooting : MonoBehaviour
     GameObject bulletPrefab;
     [SerializeField]
     float bulletSpeed;
+    float shootCooldown = 0.5f;
+    float lastShot;
+
+    private void Start()
+    {
+        lastShot = Time.time;
+    }
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            Shoot();
+            if (Time.time - lastShot > shootCooldown)
+            {
+                Shoot();
+                lastShot = Time.time;
+            }
         }
     }
 
