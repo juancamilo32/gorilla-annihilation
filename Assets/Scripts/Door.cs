@@ -4,16 +4,26 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
 
+    BoxCollider2D boxCollider2D;
+
+    private void Start()
+    {
+        boxCollider2D = GetComponent<BoxCollider2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-
+        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        Debug.Log(enemies.Length);
+        if (enemies.Length > 0)
+        {
+            boxCollider2D.isTrigger = false;
+        }
+        else
+        {
+            StartCoroutine(OpenDoorsRoutine());
+        }
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -22,6 +32,12 @@ public class Door : MonoBehaviour
         {
             other.gameObject.SetActive(false);
         }
+    }
+
+    IEnumerator OpenDoorsRoutine()
+    {
+        yield return new WaitForSeconds(0.5f);
+        boxCollider2D.isTrigger = true;
     }
 
 }

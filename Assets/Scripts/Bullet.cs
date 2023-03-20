@@ -12,6 +12,9 @@ public class Bullet : MonoBehaviour
         {
             hit.TakeDamage();
         }
-        Destroy(gameObject);
+        if (!other.CompareTag("Room"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

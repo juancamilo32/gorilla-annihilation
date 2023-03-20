@@ -44,7 +44,7 @@ public class Player : MonoBehaviour, IDamageable
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
 
         if (other.CompareTag("Door") && rigidbody.velocity.magnitude > 0)
