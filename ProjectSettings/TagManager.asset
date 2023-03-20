@@ -4,12 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Rooms
   - SpawnPoint
   - Grid
   - Door
   - Wall
   - Enemy
+  - Room
   layers:
   - Default
   - TransparentFX

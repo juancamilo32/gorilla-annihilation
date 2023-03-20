@@ -233,8 +233,17 @@ public class LevelGenerator : MonoBehaviour
             }
         }
 
+        foreach (Transform room in rooms.transform)
+        {
+            if (room.transform.position.x == (gridX - 1) * 10 && room.transform.position.y == (gridY - 1) * 7)
+            {
+                Destroy(room.gameObject);
+            }
+        }
+
         Instantiate(bossRoom, new Vector3(maxValue.x * 10, maxValue.y * 7, 0), Quaternion.identity, rooms.transform);
         Instantiate(startRoom, new Vector3((gridX - 1) * 10, (gridY - 1) * 7, 0), Quaternion.identity, rooms.transform);
+
 
         cam.transform.position = new Vector3((gridX - 1) * 10, (gridY - 1) * 7, 0);
 

@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField]
     GameObject rockPrefab;
 
+    bool dead = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,8 +44,12 @@ public class Enemy : MonoBehaviour, IDamageable
         Health--;
         if (Health < 1)
         {
-            animator.SetTrigger("Die");
-            Destroy(gameObject, 1f);
+            if (!dead)
+            {
+                animator.SetTrigger("Die");
+                dead = true;
+                Destroy(gameObject, 1f);
+            }
         }
     }
 
@@ -61,6 +67,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     IEnumerator AttackRoutine()
     {
+        yield return new WaitForSeconds(1f);
         while (Health > 0)
         {
             animator.SetTrigger("Attack");
