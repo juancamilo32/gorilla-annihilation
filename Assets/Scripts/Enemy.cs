@@ -35,7 +35,10 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         if (Health > 0)
         {
-            FlipSprite();
+            if (player)
+            {
+                FlipSprite();
+            }
         }
     }
 
@@ -68,7 +71,7 @@ public class Enemy : MonoBehaviour, IDamageable
     IEnumerator AttackRoutine()
     {
         yield return new WaitForSeconds(1f);
-        while (Health > 0)
+        while (Health > 0 && player)
         {
             animator.SetTrigger("Attack");
             if (rockSpawn.gameObject.activeSelf)

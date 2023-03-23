@@ -10,17 +10,20 @@ public class Player : MonoBehaviour, IDamageable
     Camera cam;
     Vector2 movement;
     Vector2 mousePos;
-    Rigidbody2D rigidbody;
+    Rigidbody2D rigidBody2D;
 
     public float movementSpeed = 10f;
 
     bool canMove = true;
+    Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
+        Health = 3;
         cam = FindObjectOfType<Camera>().GetComponent<Camera>();
-        rigidbody = GetComponent<Rigidbody2D>();
+        rigidBody2D = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         transform.position = cam.transform.position;
     }
 
@@ -36,18 +39,18 @@ public class Player : MonoBehaviour, IDamageable
         ManagePlayerRotation();
         if (canMove)
         {
-            rigidbody.velocity = movement * movementSpeed * Time.fixedDeltaTime;
+            rigidBody2D.velocity = movement * movementSpeed * Time.fixedDeltaTime;
         }
         else
         {
-            rigidbody.velocity = Vector3.zero;
+            rigidBody2D.velocity = Vector3.zero;
         }
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
 
-        if (other.CompareTag("Door") && rigidbody.velocity.magnitude > 0)
+        if (other.CompareTag("Door") && rigidBody2D.velocity.magnitude > 0)
         {
             if (other.transform.position.y > cam.transform.position.y)
             {
@@ -88,9 +91,9 @@ public class Player : MonoBehaviour, IDamageable
 
     void ManagePlayerRotation()
     {
-        Vector2 lookDir = mousePos - rigidbody.position;
+        Vector2 lookDir = mousePos - rigidBody2D.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg + 90f;
-        rigidbody.rotation = angle;
+        rigidBody2D.rotation = angle;
     }
 
     public void TakeDamage()
@@ -98,7 +101,9 @@ public class Player : MonoBehaviour, IDamageable
         Health--;
         if (Health < 1)
         {
-            //Death
+            animator.SetTrigger("Die");
+            canMove = false;
+            Destroy(gameObject, 1f);
         }
     }
 
