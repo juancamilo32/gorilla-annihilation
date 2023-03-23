@@ -36,9 +36,9 @@ public class Player : MonoBehaviour, IDamageable
 
     private void FixedUpdate()
     {
-        ManagePlayerRotation();
         if (canMove)
         {
+            ManagePlayerRotation();
             rigidBody2D.velocity = movement * movementSpeed * Time.fixedDeltaTime;
         }
         else
