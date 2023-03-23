@@ -103,6 +103,7 @@ public class Player : MonoBehaviour, IDamageable
         {
             animator.SetTrigger("Die");
             canMove = false;
+            gameObject.GetComponent<Shooting>().Death();
             Destroy(gameObject, 1f);
         }
     }

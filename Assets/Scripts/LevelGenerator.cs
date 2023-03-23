@@ -29,15 +29,35 @@ public class LevelGenerator : MonoBehaviour
     void Awake()
     {
         cam = FindObjectOfType<Camera>();
+        SetMenuVariables();
         GetSeed();
         GenerateMatrix();
         Generate();
+    }
 
+    void SetMenuVariables()
+    {
+        seed = Menu.seed;
+        if (Menu.floorSize == 0)
+        {
+            minRooms = 6;
+            maxRooms = 9;
+        }
+        else if (Menu.floorSize == 1)
+        {
+            minRooms = 10;
+            maxRooms = 13;
+        }
+        else if (Menu.floorSize == 2)
+        {
+            minRooms = 14;
+            maxRooms = 17;
+        }
     }
 
     private void GetSeed()
     {
-        if (seed.Length != 8)
+        if (seed.Length != 9)
         {
             seed = "";
             for (int i = 0; i < 8; i++)
