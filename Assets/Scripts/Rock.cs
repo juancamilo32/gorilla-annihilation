@@ -24,6 +24,11 @@ public class Rock : MonoBehaviour
     {
         if (!other.CompareTag("Enemy") && !other.CompareTag("Room"))
         {
+            IDamageable hit = other.GetComponent<IDamageable>();
+            if (hit != null)
+            {
+                hit.TakeDamage();
+            }
             Destroy(gameObject);
         }
     }
