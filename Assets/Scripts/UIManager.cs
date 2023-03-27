@@ -26,12 +26,23 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     GameObject[] hearts;
+    [SerializeField]
+    GameObject deathScreen;
 
     public void UpdateHealthUI(int health)
     {
         if (health >= 0)
         {
             hearts[health].SetActive(false);
+        }
+    }
+
+    public void ActivateDeathScreen()
+    {
+        CanvasGroup canvasGroup = deathScreen.GetComponent<CanvasGroup>();
+        if (canvasGroup)
+        {
+            canvasGroup.alpha += Time.deltaTime * 2;
         }
     }
 

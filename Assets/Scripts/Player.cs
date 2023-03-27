@@ -17,6 +17,8 @@ public class Player : MonoBehaviour, IDamageable
     bool canMove = true;
     Animator animator;
 
+    bool dead = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +34,14 @@ public class Player : MonoBehaviour, IDamageable
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        if (dead)
+        {
+            UIManager.Instance.ActivateDeathScreen();
+            if (Input.GetMouseButtonDown(0))
+            {
+                GameManager.Instance.RestartGame();
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -102,11 +112,18 @@ public class Player : MonoBehaviour, IDamageable
         UIManager.Instance.UpdateHealthUI(Health);
         if (Health < 1)
         {
+            StartCoroutine(DeathRoutine());
             animator.SetTrigger("Die");
             canMove = false;
             gameObject.GetComponent<Shooting>().Death();
-            Destroy(gameObject, 1f);
+            GetComponent<BoxCollider2D>().enabled = false;
         }
+    }
+
+    IEnumerator DeathRoutine()
+    {
+        yield return new WaitForSeconds(1f);
+        dead = true;
     }
 
 }
