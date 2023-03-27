@@ -99,6 +99,7 @@ public class Player : MonoBehaviour, IDamageable
     public void TakeDamage()
     {
         Health--;
+        UIManager.Instance.UpdateHealthUI(Health);
         if (Health < 1)
         {
             animator.SetTrigger("Die");
