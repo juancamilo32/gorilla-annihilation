@@ -29,7 +29,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateHealthUI(int health)
     {
-        if (health >= 1)
+        if (health >= 0)
         {
             hearts[health].SetActive(false);
         }
