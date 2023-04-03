@@ -25,7 +25,6 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         Health = 3;
         player = FindObjectOfType<Player>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         StartCoroutine(AttackRoutine());
     }
@@ -37,7 +36,7 @@ public class Enemy : MonoBehaviour, IDamageable
         {
             if (player)
             {
-                FlipSprite();
+                //FlipSprite();
             }
         }
     }
@@ -51,20 +50,9 @@ public class Enemy : MonoBehaviour, IDamageable
             {
                 animator.SetTrigger("Die");
                 dead = true;
+                GetComponent<BoxCollider2D>().enabled = false;
                 Destroy(gameObject, 1f);
             }
-        }
-    }
-
-    void FlipSprite()
-    {
-        if (player.transform.position.x > transform.position.x)
-        {
-            spriteRenderer.flipX = false;
-        }
-        else if (player.transform.position.x < transform.position.x)
-        {
-            spriteRenderer.flipX = true;
         }
     }
 

@@ -22,7 +22,7 @@ public class Rock : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Enemy") && !other.CompareTag("Room"))
+        if (!other.CompareTag("Enemy") && !other.CompareTag("Room") && !other.CompareTag("Rock"))
         {
             IDamageable hit = other.GetComponent<IDamageable>();
             if (hit != null)
