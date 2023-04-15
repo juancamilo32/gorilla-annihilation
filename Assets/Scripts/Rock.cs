@@ -6,12 +6,14 @@ public class Rock : MonoBehaviour
 {
 
     Player player;
+    bool canHit = false;
 
     // Start is called before the first frame update
     void Start()
     {
         player = FindObjectOfType<Player>();
         GetComponent<Rigidbody2D>().velocity = (player.transform.position - transform.position).normalized * 10f;
+        StartCoroutine(CollisionRoutine());
     }
 
     // Update is called once per frame
@@ -22,7 +24,7 @@ public class Rock : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Enemy") && !other.CompareTag("Room"))
+        if (!other.CompareTag("Enemy") && !other.CompareTag("Room") && !other.CompareTag("Rock") && canHit)
         {
             IDamageable hit = other.GetComponent<IDamageable>();
             if (hit != null)
@@ -31,6 +33,12 @@ public class Rock : MonoBehaviour
             }
             Destroy(gameObject);
         }
+    }
+
+    IEnumerator CollisionRoutine()
+    {
+        yield return new WaitForSeconds(0.1f);
+        canHit = true;
     }
 
 }

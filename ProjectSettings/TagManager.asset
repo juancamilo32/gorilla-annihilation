@@ -10,6 +10,8 @@ TagManager:
   - Wall
   - Enemy
   - Room
+  - Rock
+  - Replacement
   layers:
   - Default
   - TransparentFX

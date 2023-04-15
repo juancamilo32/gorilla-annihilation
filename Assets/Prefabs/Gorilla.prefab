@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 7236763448720122660}
   - component: {fileID: 7236763448720122664}
   - component: {fileID: 5856069810409373282}
+  - component: {fileID: 2170566586160954984}
   m_Layer: 0
   m_Name: Gorilla
   m_TagString: Enemy
@@ -201,3 +202,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rockSpawn: {fileID: 6571543094746631708}
   rockPrefab: {fileID: 4758260969676738661, guid: c16c4c83d2a62054bace00232f033de3, type: 3}
+--- !u!114 &2170566586160954984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7236763448720122661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1292a74bcc476e7498e5bdcbfcfb7945, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
