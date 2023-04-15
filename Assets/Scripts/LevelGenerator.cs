@@ -255,7 +255,7 @@ public class LevelGenerator : MonoBehaviour
 
         foreach (Transform room in rooms.transform)
         {
-            if (room.transform.position.x == (gridX - 1) * 10 && room.transform.position.y == (gridY - 1) * 7)
+            if ((room.transform.position.x == (gridX - 1) * 10 && room.transform.position.y == (gridY - 1) * 7) || (room.transform.position.x == maxValue.x * 10 && room.transform.position.y == maxValue.y * 7))
             {
                 Destroy(room.gameObject);
             }

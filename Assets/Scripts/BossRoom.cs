@@ -30,6 +30,18 @@ public class BossRoom : MonoBehaviour
             {
                 boss.transform.position += Vector3.down * Time.deltaTime * 4.2f;
             }
+            else
+            {
+                boss.GetComponent<BoxCollider2D>().enabled = true;
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            StartCoroutine(SpawnRoutine());
         }
     }
 
@@ -48,6 +60,18 @@ public class BossRoom : MonoBehaviour
         }
 
         boss = Instantiate(bossPrefab, spawnPoint, Quaternion.identity);
+        boss.GetComponent<BoxCollider2D>().enabled = false;
+    }
+
+    IEnumerator SpawnRoutine()
+    {
+        Transform[] allChildren = GetComponentsInChildren<Transform>();
+        foreach (Transform child in allChildren)
+        {
+            child.gameObject.SetActive(true);
+        }
+        yield return new WaitForSeconds(1f);
+        SpawnBoss();
     }
 
 }

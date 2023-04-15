@@ -15,7 +15,8 @@ public class Door : MonoBehaviour
     void LateUpdate()
     {
         Enemy[] enemies = FindObjectsOfType<Enemy>();
-        if (enemies.Length > 0)
+        Boss boss = FindObjectOfType<Boss>();
+        if (enemies.Length > 0 || boss != null)
         {
             boxCollider2D.isTrigger = false;
         }
