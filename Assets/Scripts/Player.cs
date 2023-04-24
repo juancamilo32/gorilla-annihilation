@@ -39,6 +39,11 @@ public class Player : MonoBehaviour, IDamageable
             UIManager.Instance.ActivateDeathScreen();
             if (Input.GetMouseButtonDown(0))
             {
+                if (FindObjectOfType<Boss>())
+                {
+                    AudioManager.instance.Stop("Battle");
+                    AudioManager.instance.Play("Theme");
+                }
                 GameManager.Instance.RestartGame();
             }
         }
