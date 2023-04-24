@@ -11,6 +11,7 @@ public class Boss : MonoBehaviour, IDamageable
 
     FlipSprite flipSprite;
     Animator animator;
+    BoxCollider2D boxCollider2D;
     Player player;
     Rigidbody2D rigidBody;
     [SerializeField]
@@ -28,6 +29,7 @@ public class Boss : MonoBehaviour, IDamageable
         animator = GetComponent<Animator>();
         player = FindObjectOfType<Player>();
         rigidBody = GetComponent<Rigidbody2D>();
+        boxCollider2D = GetComponent<BoxCollider2D>();
         UIManager.Instance.ShowHideHealthBar(true);
         StartCoroutine(AttackRotation());
     }
@@ -49,6 +51,8 @@ public class Boss : MonoBehaviour, IDamageable
             if (Input.GetMouseButtonDown(0))
             {
                 GameManager.Instance.RestartGame();
+                AudioManager.instance.Stop("Battle");
+                AudioManager.instance.Play("Theme");
             }
         }
     }
@@ -60,9 +64,10 @@ public class Boss : MonoBehaviour, IDamageable
         if (Health < 1)
         {
             rigidBody.velocity = Vector3.zero;
+            Destroy(boxCollider2D);
             StartCoroutine(DeathRoutine());
             animator.SetTrigger("Die");
-            GetComponent<BoxCollider2D>().enabled = false;
+            AudioManager.instance.Play("Enemy_Death");
         }
     }
 
@@ -142,6 +147,7 @@ public class Boss : MonoBehaviour, IDamageable
             yield return new WaitForSeconds(0.2f);
             if (rockSpawn.gameObject.activeSelf)
             {
+                AudioManager.instance.Play("Rock");
                 GameObject rock = Instantiate(rockPrefab, rockSpawn.transform.position, Quaternion.identity);
                 rock.transform.localScale *= 2;
             }

@@ -114,9 +114,14 @@ public class Player : MonoBehaviour, IDamageable
         {
             StartCoroutine(DeathRoutine());
             animator.SetTrigger("Die");
+            AudioManager.instance.Play("Death");
             canMove = false;
             gameObject.GetComponent<Shooting>().Death();
             GetComponent<BoxCollider2D>().enabled = false;
+        }
+        else
+        {
+            AudioManager.instance.Play("Ouch");
         }
     }
 

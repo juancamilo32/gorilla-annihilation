@@ -20,10 +20,6 @@ public class BossRoom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            SpawnBoss();
-        }
         if (boss != null)
         {
             if (boss.transform.position.y > transform.position.y && !animationEnded)
@@ -41,6 +37,8 @@ public class BossRoom : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            AudioManager.instance.Stop("Theme");
+            AudioManager.instance.Play("Battle");
             StartCoroutine(SpawnRoutine());
         }
     }
