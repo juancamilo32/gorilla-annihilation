@@ -32,13 +32,7 @@ public class Enemy : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        if (Health > 0)
-        {
-            if (player)
-            {
-                //FlipSprite();
-            }
-        }
+
     }
 
     public void TakeDamage()
@@ -49,6 +43,7 @@ public class Enemy : MonoBehaviour, IDamageable
             if (!dead)
             {
                 animator.SetTrigger("Die");
+                AudioManager.instance.Play("Enemy_Death");
                 dead = true;
                 GetComponent<BoxCollider2D>().enabled = false;
                 Destroy(gameObject, 1f);
@@ -62,6 +57,7 @@ public class Enemy : MonoBehaviour, IDamageable
         while (Health > 0 && player)
         {
             animator.SetTrigger("Attack");
+            AudioManager.instance.Play("Rock");
             if (rockSpawn.gameObject.activeSelf)
             {
                 Instantiate(rockPrefab, rockSpawn.transform.position, Quaternion.identity);
